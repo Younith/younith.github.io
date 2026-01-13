@@ -5,5 +5,20 @@ theme: just-the-docs
 url: https://younith.github.io
 color_scheme: dark
 
+markdown: kramdown
+
+kramdown: 
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  syntax_highlighter: rouge
+
 # SITE CONFIG
 favicon_ico: "/assets/images/favicon.ico"
+
+
+# CALLOUT CONFIG
+callouts:
+  important:
+    titile: IMPORTANT
+    color: blue
