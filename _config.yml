@@ -18,7 +18,9 @@ favicon_ico: "/assets/images/favicon.ico"
 
 
 # CALLOUT CONFIG
+#
+callouts_level: loud
 callouts:
   important:
     titile: IMPORTANT
-    color: purple
+    color: pink
