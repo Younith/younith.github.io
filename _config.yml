@@ -21,4 +21,4 @@ favicon_ico: "/assets/images/favicon.ico"
 callouts:
   important:
     titile: IMPORTANT
-    color: blue
+    color: purple

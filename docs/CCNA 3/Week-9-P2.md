@@ -4,7 +4,6 @@ parent: Week 9
 layout: default
 nav_order: 2
 ---
-
 # Completion
 
 {: .important-title }
