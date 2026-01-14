@@ -14,5 +14,3 @@ These notes are written to be:
 - **Concise** – no filler, only what matters  
 
 This documentation also acts as a **long-term reference**.  Keeping everything in one place makes it easier to revisit earlier decisions and avoid relearning the same lessons the hard way.
-
-![[younith.github.io/assets/images/Firewall Security/Week-6/Full-Topology.png]]
