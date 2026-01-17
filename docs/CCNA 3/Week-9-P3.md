@@ -29,7 +29,7 @@ nav_order: 3
 {: .important-title }
 > TFTP Server
 > 
-> ![](/assets/images/CCNA 3/Week-9/TFTP_Server. Png)
+> ![](/assets/images/CCNA 3/Week-9/TFTP_Server.png)
 
 # Device Configuration
 ## Full Topology 
