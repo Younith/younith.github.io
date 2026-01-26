@@ -24,6 +24,7 @@ nav_order: 10
 > Full Topology
 > 
 > ![](/assets/images/Firewall Security/Week-10/Full-Topology.png)
+
 ## fortigate
 
 ```
