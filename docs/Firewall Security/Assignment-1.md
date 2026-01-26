@@ -10,7 +10,7 @@ nav_order: 1
 {: .important-title }
 > `Client1` can reach the webserver & the internet
 > 
-> ![](/assets/images/Firewall Security/Assignment-1/Client 1-to-internet-and-webserver.png)
+> ![](/assets/images/Firewall Security/Assignment-1/Client1-to-internet-and-webserver.png)
 
 {: .important-title }
 > Mikrotik's route-table 
@@ -100,134 +100,138 @@ exit
 
 ```
 IP Config:
-	ip (DHCP)	: 192.168.2.* 
-	dfgw		: 192.168.2.254
-	dns			: 192.168.1.1
+	ip (DHCP) : 192.168.2.* 
+	dfgw      : 192.168.2.254
+	dns       : 192.168.1.1
 ```
 
 ## Fortigate
 
 ```
 config system interface  
-	edit port1
-		set alias WAN
-		set mode dhcp  
-		set defaultgw enable
-		set dns-server-override enable
-	next  
-	
-	# Mikrotik < Fortigate (10.10.10.0/30)
-	
-	edit port2
-		set role LAN
-		set alias mikrotik
-		set ip 10.10.10.2 255.255.255.252
-		set allowaccess ping 
-		set mode static
-	next
-	
-	# Fortigate > Cisco (10.10.10.4/30)
-	
-	edit port3
-		set role LAN
-		set alias cisco
-		set ip 10.10.10.5 255.255.255.252
-		set allowaccess ping 
-		set mode static
-	next
-	
-	edit port4
-		set role LAN
-		set alias LAN3
-		set ip 192.168.3.254 255.255.255.0
-		set allowaccess ping 
-		set mode static
-	next
-	**dhcp server configured on this interface through gui**
-	end
+edit port1
+set alias WAN
+set mode dhcp  
+set defaultgw enable
+set dns-server-override enable
+next  
+
+# Mikrotik < Fortigate (10.10.10.0/30)
+
+edit port2
+set role LAN
+set alias mikrotik
+set ip 10.10.10.2 255.255.255.252
+set allowaccess ping 
+set mode static
+next
+
+# Fortigate > Cisco (10.10.10.4/30)
+
+edit port3
+set role LAN
+set alias cisco
+set ip 10.10.10.5 255.255.255.252
+set allowaccess ping 
+set mode static
+next
+
+edit port4
+set role LAN
+set alias LAN3
+set ip 192.168.3.254 255.255.255.0
+set allowaccess ping 
+set mode static
+next
+**dhcp server configured on this interface through gui**
+end
 
 ## Rip-v2
 
 config router rip
-	config network
-		edit 1
-			set prefix 10.10.10.0 255.255.255.252
-		next
-		
-		edit 2
-			set prefix 10.10.10.4 255.255.255.252
-		next
-		
-		edit 3
-			set prefix 192.168.3.0 255.255.255.0
-		next
-		end
-	end
+config network
+edit 1
+set prefix 10.10.10.0 255.255.255.252
+next
+
+edit 2
+set prefix 10.10.10.4 255.255.255.252
+next
+
+edit 3
+set prefix 192.168.3.0 255.255.255.0
+next
+end
+end
 
 config interface
-	edit port2
-		set receive-version 2
-		set send-version 2
-	next
-	edit port3
-		set receive-version 2
-		set send-version 2
-	next
-	end
+edit port2
+set receive-version 2
+set send-version 2
+next
+edit port3
+set receive-version 2
+set send-version 2
+next
+end
 
 config firewall policy
-    edit 1
-		set name "mikrotik_cisco"
-        set srcintf "port2"
-        set dstintf "port3"
-        set srcaddr "all"
-        set dstaddr "all"
-        set action accept
-        set schedule "always"
-        set service "ALL"
-    next
-    edit 2
-		set name "cisco_mikrotik"
-        set srcintf "port3"
-        set dstintf "port2"
-        set srcaddr "all"
-        set dstaddr "all"
-        set action accept
-        set schedule "always"
-        set service "ALL"
-    next
-    edit 3
-        set name "LAN3_WAN"
-        set srcintf "port4"
-        set dstintf "port1"
-        set action accept
-        set srcaddr "all"
-        set dstaddr "all"
-        set schedule "always"
-        set service http https ping
-        set nat enable
-        set ippool disable
-    next
-    edit 4
-        set name "LAN3_mikrotik"
-        set srcintf "port4"
-        set dstintf "port2"
-        set action accept
-        set srcaddr "all"
-        set dstaddr "all"
-        set schedule "always"
-        set service dns ping
-    next
-    edit 5
-        set name "LAN3_cisco"
-        set srcintf "port4"
-        set dstintf "port3"
-        set action accept
-        set srcaddr "all"
-        set dstaddr "all"
-        set schedule "always"
-        set service http ping
-    next
+edit 1
+set name "mikrotik_cisco"
+set srcintf "port2"
+set dstintf "port3"
+set srcaddr "all"
+set dstaddr "all"
+set action accept
+set schedule "always"
+set service "ALL"
+next
+
+edit 2
+set name "cisco_mikrotik"
+set srcintf "port3"
+set dstintf "port2"
+set srcaddr "all"
+set dstaddr "all"
+set action accept
+set schedule "always"
+set service "ALL"
+next
+
+edit 3
+set name "LAN3_WAN"
+set srcintf "port4"
+set dstintf "port1"
+set action accept
+set srcaddr "all"
+set dstaddr "all"
+set schedule "always"
+set service http https ping
+set nat enable
+set ippool disable
+next
+
+edit 4
+set name "LAN3_mikrotik"
+set srcintf "port4"
+set dstintf "port2"
+set action accept
+set srcaddr "all"
+set dstaddr "all"
+set schedule "always"
+set service dns ping
+next
+
+edit 5
+set name "LAN3_cisco"
+set srcintf "port4"
+set dstintf "port3"
+set action accept
+set srcaddr "all"
+set dstaddr "all"
+set schedule "always"
+set service http ping
+next
 end
 
 ```
@@ -237,9 +241,9 @@ end
 
 ```
 IP Config:
-	ip (DHCP)	: 192.168.3.* 
-	dfgw		: 192.168.3.254
-	dns			: 192.168.1.1
+	ip (DHCP)   : 192.168.3.* 
+	dfgw        : 192.168.3.254
+	dns         : 192.168.1.1
 ```
 
 ## Cisco
@@ -347,16 +351,16 @@ Webserver (nginx):
 		- index.html > <h1>This is app.beltei.com</h1>
 
 IP (netplan):
-	ip 		: 192.168.5.1/24
-	dfgw	: 192.168.5.254
-	dns		: 192.168.1.1
+	ip      : 192.168.5.1/24
+	dfgw    : 192.168.5.254
+	dns     : 192.168.1.1
 ```
 
 ### Client2
 
 ```
 IP Config:
-	ip (DHCP)	: 192.168.6.* 
-	dfgw		: 192.168.6.254
-	dns			: 192.168.1.1
+	ip (DHCP)   : 192.168.6.* 
+	dfgw        : 192.168.6.254
+	dns         : 192.168.1.1
 ```
