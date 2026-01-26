@@ -5,6 +5,15 @@ layout: default
 nav_order: 10
 ---
 # Completion
+{: .no_toc }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 {: .important-title }
 > `Client1` can reach both webservers
