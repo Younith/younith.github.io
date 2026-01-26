@@ -4,7 +4,6 @@ parent: Firewall Security
 layout: default
 nav_order: 10
 ---
-
 # Completion
 
 {: .important-title }
